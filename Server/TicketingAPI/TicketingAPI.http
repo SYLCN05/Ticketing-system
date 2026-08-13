@@ -5,12 +5,16 @@ Accept: application/json
 
 ###
 
-PUT {{TicketingAPI_HostAddress}}/ticketingapi
+PUT {{TicketingAPI_HostAddress}}/ticketingapi/Create-Ticket
 Content-Type: application/json
 
 {
   "ticket_title":"First test ticket!",
   "ticket_description":"This is the description of the very first ticket inside of this application!"
 }
+
+###
+
+GET {{TicketingAPI_HostAddress}}/ticketingapi/Get-Tickets
 
 ###

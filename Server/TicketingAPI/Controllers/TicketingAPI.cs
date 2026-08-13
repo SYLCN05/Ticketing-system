@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TicketingAPI.Data;
 using TicketingAPI.Models;
 
@@ -17,6 +18,7 @@ namespace TicketingAPI.Controllers
         }
 
         [HttpPut]
+        [Route("Create-Ticket")]
         public async Task<IActionResult> CreateTicket(tickets ticket)
         {
             Console.WriteLine(ticket);
@@ -30,6 +32,13 @@ namespace TicketingAPI.Controllers
 
             return BadRequest();
 
-        }       
+        }
+
+        [HttpGet]
+        [Route("Get-Tickets")]
+        public async Task<ActionResult<List<tickets>>> GetTickets()
+        {
+            return await _context.tickets.ToListAsync();
+        }
     }
 }
