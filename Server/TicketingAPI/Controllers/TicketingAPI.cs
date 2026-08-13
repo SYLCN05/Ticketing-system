@@ -17,6 +17,7 @@ namespace TicketingAPI.Controllers
         }
 
         [HttpPut]
+        [Route("Create-Ticket")]
         public async Task<IActionResult> CreateTicket(tickets ticket)
         {
             Console.WriteLine(ticket);
