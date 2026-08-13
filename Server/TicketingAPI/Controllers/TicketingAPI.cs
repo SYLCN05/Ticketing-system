@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using TicketingAPI.Data;
+using TicketingAPI.Models;
 
 namespace TicketingAPI.Controllers
 {
@@ -6,28 +9,27 @@ namespace TicketingAPI.Controllers
     [Route("[controller]")]
     public class TicketingAPI : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        private readonly ApplicationDBContext _context;
 
-        private readonly ILogger<TicketingAPI> _logger;
-
-        public TicketingAPI(ILogger<TicketingAPI> logger)
+        public TicketingAPI(ApplicationDBContext _context)
         {
-            _logger = logger;
+            this._context = _context;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpPut]
+        public async Task<IActionResult> CreateTicket(tickets ticket)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            Console.WriteLine(ticket);
+            if (ModelState.IsValid)
             {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }
+                var NewTicket = await _context.tickets.AddAsync(ticket);
+                await _context.SaveChangesAsync();
+                
+                return Ok("The new ticket has been succesfully made");
+            }
+
+            return BadRequest();
+
+        }       
     }
 }
