@@ -14,3 +14,7 @@ Content-Type: application/json
 }
 
 ###
+
+GET {{TicketingAPI_HostAddress}}/ticketingapi/Get-Tickets
+
+###
