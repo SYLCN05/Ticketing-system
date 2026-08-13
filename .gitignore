@@ -49,3 +49,4 @@ ehthumbs.db
 .env
 .env*
 
+appsettings.Development.json
