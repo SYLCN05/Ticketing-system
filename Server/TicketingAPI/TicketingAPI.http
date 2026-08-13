@@ -5,7 +5,7 @@ Accept: application/json
 
 ###
 
-PUT {{TicketingAPI_HostAddress}}/ticketingapi
+PUT {{TicketingAPI_HostAddress}}/ticketingapi/Create-Ticket
 Content-Type: application/json
 
 {
