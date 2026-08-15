@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using TicketingAPI.Data;
+using TicketingAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddHttpClient<TicketAIService>();
 await using var conn = new NpgsqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
 await conn.OpenAsync();
 Console.WriteLine($"The PostgreSQL version: {conn.PostgreSqlVersion}"); 
