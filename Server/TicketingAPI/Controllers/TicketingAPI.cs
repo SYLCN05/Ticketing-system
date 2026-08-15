@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketingAPI.Data;
 using TicketingAPI.Models;
+using TicketingAPI.Services;
 
 namespace TicketingAPI.Controllers
 {
@@ -11,10 +12,11 @@ namespace TicketingAPI.Controllers
     public class TicketingAPI : ControllerBase
     {
         private readonly ApplicationDBContext _context;
-
-        public TicketingAPI(ApplicationDBContext _context)
+        private TicketAIService _ticketAIService;
+        public TicketingAPI(ApplicationDBContext context, TicketAIService aiService )
         {
-            this._context = _context;
+            _context = context;
+            _ticketAIService = aiService;
         }
 
         [HttpPut]
@@ -24,7 +26,16 @@ namespace TicketingAPI.Controllers
             Console.WriteLine(ticket);
             if (ModelState.IsValid)
             {
-                var NewTicket = await _context.tickets.AddAsync(ticket);
+                var ticketAnalyzationResult = await _ticketAIService.AnalyzeTicketPriority(ticket.ticket_title, ticket.ticket_description);
+
+                var newTicket = new tickets
+                {
+                    ticket_title = ticket.ticket_title,
+                    ticket_description = ticket.ticket_description,
+                    ticket_priority = ticketAnalyzationResult.Priority
+                };
+
+                await _context.tickets.AddAsync(newTicket);
                 await _context.SaveChangesAsync();
                 
                 return Ok("The new ticket has been succesfully made");

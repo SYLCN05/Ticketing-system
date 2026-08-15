@@ -9,12 +9,11 @@ PUT {{TicketingAPI_HostAddress}}/ticketingapi/Create-Ticket
 Content-Type: application/json
 
 {
-  "ticket_title":"First test ticket!",
-  "ticket_description":"This is the description of the very first ticket inside of this application!"
+  "ticket_title":"Applicatie crashed na 10 min",
+  "ticket_description":"Iedere keer wanneer de applicatie geopend wordt en mijn medewerkers werken met de software crashed de applicatie na 10 min, zonder error of iets anders"
 }
 
 ###
 
 GET {{TicketingAPI_HostAddress}}/ticketingapi/Get-Tickets
 
-###
