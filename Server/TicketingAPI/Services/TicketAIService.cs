@@ -53,7 +53,7 @@ namespace TicketingAPI.Services
             };
 
             var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-            var jsonResponse = await this._httpClient.PostAsync(endpoint, jsonContent);
+            var jsonResponse = await _httpClient.PostAsync(endpoint, jsonContent);
 
             jsonResponse.EnsureSuccessStatusCode();
 
@@ -66,7 +66,6 @@ namespace TicketingAPI.Services
                 .GetProperty("parts")[0]
                 .GetProperty("text")
                 .GetString();
-            Console.WriteLine(rawJsonText);
 
             return JsonSerializer.Deserialize<PriorityResult>(rawJsonText!, new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
         }
