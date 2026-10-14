@@ -19,7 +19,7 @@ namespace TicketingAPI.Controllers
             _ticketAIService = aiService;
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("Create-Ticket")]
         public async Task<IActionResult> CreateTicket(tickets ticket)
         {
