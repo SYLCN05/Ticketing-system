@@ -1,6 +1,6 @@
 import { getTickets } from "../Tickets/Tickets";
 import { useEffect, useState } from "react";
-
+import { NewTicketButton } from "../Components/NewTicketButton";
 export type Ticket = {
   id: number;
   ticket_description: string;
@@ -32,6 +32,9 @@ export function Tickets() {
   }
   return (
     <div className="">
+      <div className="flex justify-end p-3 mr-[5vw]">
+        <NewTicketButton />
+      </div>
       <ul className="flex flex-wrap gap-4 items-center justify-center mt-20 text-theme-light font-mono  ">
         {!loading &&
           tickets.map((ticket) => (
